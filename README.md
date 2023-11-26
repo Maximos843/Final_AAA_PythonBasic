@@ -17,4 +17,5 @@ menu: python cli.py menu
 ---
 
 
-python -m unittest -v test_pizza
+python -m unittest -v test_pizza.py
+python -m unittest -v test_log.py

@@ -11,16 +11,17 @@ def cli():
 @cli.command()
 @click.option('--delivery', default=False, is_flag=True)
 @click.argument('pizza', nargs=1)
-def order(pizza: str, delivery: bool):
+def order(pizza: str, delivery: bool) -> None:
     """Готовит и доставляет пиццу"""
     pizza = pizza.capitalize()
     if pizza not in ['Margherita', 'Pepperoni', 'Hawaiian']:
-        raise TypeError('Incorrect pizza type')
-    print(bake(pizza))
+        print('Incorrect Pizza type')
+        return
+    bake(pizza)
     if delivery:
-        print(delivery_order(pizza))
+        delivery_order(pizza)
     else:
-        print(pickup(pizza))
+        pickup(pizza)
 
 
 @cli.command()

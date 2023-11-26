@@ -1,33 +1,30 @@
 import random
-from typing import Callable, Union
+from typing import Callable
 
 
-def log(arg: Union[Callable, str]) -> Callable:
-    if not callable(arg):
-        def wrapper(func: Callable) -> Callable:
-            def decorator(*args) -> str:
-                return arg.format(args[0], func(*args))
-            return decorator
-        return wrapper
-    else:
-        def decorator(*args) -> str:
-            return f'{arg.__name__} - {arg(args)}c!'
+def log(template: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        def decorator(*args, **kwargs) -> str:
+            res = func(*args, **kwargs)
+            print(template.format(args[0], random.randint(1, 5)))
+            return res
         return decorator
+    return wrapper
 
 
 @log('👨‍🍳 Приготовили пиццу {} за {}с!')
-def bake(pizza: str) -> int:
+def bake(pizza: str):
     """Готовит пиццу"""
-    return random.randint(1, 5)
+    pass
 
 
 @log('🚀 Доставили пиццу {} за {}с!')
-def delivery_order(pizza: str) -> int:
+def delivery_order(pizza: str):
     """Доставляет пиццу"""
-    return random.randint(1, 5)
+    pass
 
 
 @log('🛍 Забрали пиццу {} за {}с!')
-def pickup(pizza: str) -> int:
+def pickup(pizza: str):
     """Самовывоз"""
-    return random.randint(1, 5)
+    pass
